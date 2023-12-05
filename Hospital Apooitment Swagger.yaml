@@ -1,0 +1,128 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Hospital Appointment API"
+paths:
+  /appointment:
+    get:
+      summary: "GetA ll Resources"
+      description: "Retrieve a list of all doctor appoinement in the calendar."
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/AppointmentViewModel"
+    post:
+      summary: "Create new Resource"
+      description: "Add a new appointment to the calendar."
+      parameters:
+        - name: "appoitmentViewModel"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/AppointmentViewModel"
+      responses:
+        201:
+          description: "Appoinment added successfully"
+        400:
+          description: "Invalid request"
+    put:
+      summary: "Update existing Appoinment"
+      description: "Update an existing appoinement in the calendar."
+      parameters:
+        - name: "appoitmentViewModel"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/AppointmentViewModel"
+      responses:
+        200:
+          description: "Appoinment updated successfully"
+        404:
+          description: "Appoinment not found"
+    delete:
+      summary: "Remove Appoinment"
+      description: "Remove a specific and List of Appoinment from the calendar."
+      parameters:
+        - name: "appoitmentIds"
+          in: "path"
+          required: true
+          type: "integer"
+      responses:
+        204:
+          description: "Appoinment removed successfully"
+        404:
+          description: "Appoinment not found"
+  /appointment/GetPatientListbySearch/{patientName,doctorId}:
+    get:
+      summary: "Search appoinement by patient name"
+      description: "Retrieve appoinement based on the patient's name."
+      parameters:
+        - name: "customerName"
+          in: "path"
+          required: true
+          type: "string"
+        - name: "doctorId"
+          in: "path"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/AppointmentViewModel"
+  /appointment/GetTimePeriodListbySearch:
+    get:
+      summary: "Search appoinement by time period"
+      description: "Retrieve appoinement based on a specified time period."
+      parameters:
+        - name: "startTime"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "endTime"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "doctorId"
+          in: "path"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/AppointmentViewModel"
+definitions:
+  AppointmentViewModel:
+    type: "object"
+    properties:
+      AppoitmentId:
+        type: "integer"
+      PatientName:
+        type: "string"
+      DoctorId:
+        type: "integer"
+      startTime:
+        type: "string"
+      endTime:
+        type: "string"
+      Address:
+        type: "string"
+      PatientPhoneNumber:
+        type: "string"
+      DoctorName:
+        type: "string"
+      StatusMessage:
+        type: "string"
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /EMKLIFE_1/Reservation/1.0.0
+schemes:
+ - https
